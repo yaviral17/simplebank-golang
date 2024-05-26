@@ -3,13 +3,13 @@ CREATE TABLE
         "id" bigserial PRIMARY KEY,
         "owner" varchar NOT NULL,
         "balance" bigint NOT NULL,
-        "country" varchar NOT NULL,
+        "currency" varchar NOT NULL,
         "created_at" timestamp NOT NULL DEFAULT (now ())
     );
 
 CREATE TABLE
     "entries" (
-        "int" bigserial PRIMARY KEY,
+        "id" bigserial PRIMARY KEY,
         "account_id" bigint NOT NULL,
         "amount" bigint NOT NULL,
         "created_at" timestamp NOT NULL DEFAULT (now ())
