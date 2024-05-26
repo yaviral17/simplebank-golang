@@ -4,6 +4,12 @@ postgres:
 createdb:
 	docker exec -it pdb createdb --username=root --owner=root simple_bank
 
+setup:
+	make postgres
+	make createdb
+	make migrate-up
+	make clean
+
 dropdb:
 	docker exec -it pdb dropdb simple_bank
 
@@ -23,4 +29,11 @@ migrate-up:
 migrate-down:
 	migrate -path db/migration -database "postgresql://root:toor@localhost:5432/simple_bank?sslmode=disable" -verbose down -all
 
-.PHONY: postgres createdb dropdb stop-server start-server clean check-image migrate-up migrate-down
+sqlc: 
+	sqlc generate
+
+test:
+	go test -v -cover ./...
+
+.PHONY: postgres createdb dropdb stop-server start-server clean check-image migrate-up migrate-down sqlc go-testmain
+
